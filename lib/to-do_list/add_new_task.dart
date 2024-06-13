@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fusion_ease_app/to-do_list/dummydata.dart';
-import 'package:fusion_ease_app/to-do_list/task_model.dart';
+//import 'package:uuid/uuid.dart';
 
+//const uuid = Uuid();
 final currentUser = FirebaseAuth.instance.currentUser!;
 
 class AddNewItem extends StatefulWidget {
@@ -22,22 +22,19 @@ class _AddNewItem extends State<AddNewItem> {
   var _selectedTitle = '';
 
   void addTask() {
-    final _Taskdate = DateTime(_selectedDate.year, _selectedDate.month,
+    final taskdate = DateTime(_selectedDate.year, _selectedDate.month,
         _selectedDate.day, _selectedTime.hour, _selectedTime.minute);
-    final newTask = TaskModel(
-        title: _selectedTitle,
-        date: _Taskdate,
-        priority: _selectedPriority,
-        status: false);
-    todolistitems.add(newTask);
 
-    FirebaseFirestore.instance.collection(currentUser.uid).doc('TODO-ITEMS').set({
+    FirebaseFirestore.instance
+        .collection(currentUser.uid)
+        .doc('TODO-ITEMS')
+        .set({
       'tasks': FieldValue.arrayUnion([
         {
+          //'id': uuid.v4(),
           'title': _selectedTitle,
-          'date': _Taskdate.toString().substring(0, 16),
+          'date': taskdate.toString().substring(0, 16),
           'priority': _selectedPriority,
-          'status': false
         }
       ])
     }, SetOptions(merge: true));
@@ -109,61 +106,65 @@ class _AddNewItem extends State<AddNewItem> {
               Row(
                 children: [
                   Expanded(
-                    child: TextField(
-                        decoration: InputDecoration(
-                      hintText: (_selectedDate != null)
-                          ? 'Date:      ${_selectedDate.year} / ${_selectedDate.month} / ${_selectedDate.day} '
-                          : 'yyyy/mm//dd',
-                    )),
+                    child: TextFormField(
+                      readOnly: true,
+                      onTap: () async {
+                        final date = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime(2100),
+                        );
+                        if (date != null) {
+                          setState(() {
+                            _selectedDate = date;
+                          });
+                        }
+                      },
+                      decoration: InputDecoration(
+                        label: const Text("Date"),
+                        icon: const Icon(Icons.calendar_month_rounded),
+                        hintText: (_selectedDate != null)
+                            ? '${_selectedDate.year} / ${_selectedDate.month} / ${_selectedDate.day} '
+                            : 'yyyy/mm/dd',
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     width: 80,
-                  ),
+                  )
                 ],
               ),
-              FilledButton(
-                  onPressed: () async {
-                    final DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(2015, 8),
-                      lastDate: DateTime(2101),
-                    );
-                    if (pickedDate != null) {
-                      setState(() {
-                        _selectedDate = pickedDate;
-                      });
-                    }
-                  },
-                  child: const Text('Choose Date')),
               Row(
                 children: [
                   Expanded(
-                    child: TextField(
-                        decoration: InputDecoration(
-                      hintText: (_selectedTime != null)
-                          ? 'Time:      ${_selectedTime.hour} : ${_selectedTime.minute} '
-                          : 'hh/mm',
-                    )),
+                    child: TextFormField(
+                      readOnly: true,
+                      onTap: () async {
+                        final TimeOfDay? pickedTime = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                        );
+                        if (pickedTime != null) {
+                          setState(() {
+                            _selectedTime = pickedTime;
+                          });
+                        }
+                      },
+                      decoration: InputDecoration(
+                        label: const Text("Time"),
+                        icon: const Icon(Icons.av_timer_rounded),
+                        hintText: (_selectedTime != null)
+                            ? '${_selectedTime.hour} : ${_selectedTime.minute}'
+                            : 'hh/mm',
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     width: 80,
-                  ),
+                  )
                 ],
               ),
-              FilledButton(
-                  onPressed: () async {
-                    final TimeOfDay? pickedTime = await showTimePicker(
-                      context: context,
-                      initialTime: TimeOfDay.now(),
-                    );
-                    if (pickedTime != null) {
-                      setState(() {
-                        _selectedTime = pickedTime;
-                      });
-                    }
-                  },
-                  child: const Text('Choose Time')),
               const SizedBox(
                 height: 10,
               ),

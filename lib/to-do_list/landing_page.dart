@@ -16,7 +16,6 @@ class _TODOLandingPage extends State<TODOLandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
         backgroundColor: Colors.deepOrange,
         title: const Text('TO DO LIST'),
@@ -25,23 +24,22 @@ class _TODOLandingPage extends State<TODOLandingPage> {
             icon: const Icon(Icons.add),
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => AddNewItem()),
+                MaterialPageRoute(builder: (context) => const AddNewItem()),
               );
             },
           ),
         ],
       ),
-
       body: const Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              StatusBarTop(),
-              SizedBox(
-                height: 10,
-              ),
-              Expanded(child: mystate()),
-            ],
-          ),     
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          StatusBarTop(),
+          SizedBox(
+            height: 10,
+          ),
+          Expanded(child: ScrollListTODO()),
+        ],
+      ),
     );
   }
 }

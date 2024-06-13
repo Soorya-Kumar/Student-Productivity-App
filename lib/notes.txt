@@ -21,3 +21,10 @@ to do list:
 
 star items
 to do items
+
+
+
+color depending on high low 
+status bar number
+validate
+UI update
