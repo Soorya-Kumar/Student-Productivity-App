@@ -16,12 +16,28 @@ class AddNewItem extends StatefulWidget {
 }
 
 class _AddNewItem extends State<AddNewItem> {
+
   var _selectedDate;
   var _selectedTime;
   var _selectedPriority;
-  var _selectedTitle = '';
+  var  _selectedTitle;
 
   void addTask() {
+
+    if (_selectedTitle == null || _selectedTitle.isEmpty ||
+        _selectedPriority == null ||
+        _selectedDate == null ||
+        _selectedTime == null) 
+    {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please enter all details'),
+        ),
+      );
+      return;
+    }
+
     final taskdate = DateTime(_selectedDate.year, _selectedDate.month,
         _selectedDate.day, _selectedTime.hour, _selectedTime.minute);
 
@@ -39,6 +55,7 @@ class _AddNewItem extends State<AddNewItem> {
       ])
     }, SetOptions(merge: true));
 
+
     Navigator.of(context).pop();
   }
 
@@ -47,7 +64,8 @@ class _AddNewItem extends State<AddNewItem> {
     return Card(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.deepOrange,
+          foregroundColor: Colors.white,
+          backgroundColor: const Color.fromARGB(255, 121, 51, 243),
           title: const Text('Add New Task'),
         ),
         body: Padding(
@@ -60,6 +78,12 @@ class _AddNewItem extends State<AddNewItem> {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter a title';
+                        }
+                        return null;
+                      },
                       maxLength: 50,
                       autocorrect: false,
                       onChanged: (newValue) {
@@ -97,7 +121,9 @@ class _AddNewItem extends State<AddNewItem> {
                   ),
                 ],
                 onChanged: (value) {
-                  _selectedPriority = value;
+                  setState(() {
+                    _selectedPriority = value;
+                  });
                 },
               ),
               const SizedBox(
@@ -108,6 +134,9 @@ class _AddNewItem extends State<AddNewItem> {
                   Expanded(
                     child: TextFormField(
                       readOnly: true,
+                      controller: TextEditingController(text: (_selectedDate != null)
+                            ? '${_selectedDate.year} / ${_selectedDate.month} / ${_selectedDate.day}'
+                            : 'yyyy/mm//dd',),
                       onTap: () async {
                         final date = await showDatePicker(
                           context: context,
@@ -121,12 +150,10 @@ class _AddNewItem extends State<AddNewItem> {
                           });
                         }
                       },
-                      decoration: InputDecoration(
-                        label: const Text("Date"),
-                        icon: const Icon(Icons.calendar_month_rounded),
-                        hintText: (_selectedDate != null)
-                            ? '${_selectedDate.year} / ${_selectedDate.month} / ${_selectedDate.day} '
-                            : 'yyyy/mm/dd',
+                      decoration: const InputDecoration(
+                        label: Text("Date"),
+                        icon: Icon(Icons.calendar_month_rounded),
+                        
                       ),
                     ),
                   ),
@@ -140,6 +167,9 @@ class _AddNewItem extends State<AddNewItem> {
                   Expanded(
                     child: TextFormField(
                       readOnly: true,
+                      controller: TextEditingController(text: (_selectedTime != null)
+                            ? '${_selectedTime.hour} : ${_selectedTime.minute}'
+                            : 'hh/mm',),
                       onTap: () async {
                         final TimeOfDay? pickedTime = await showTimePicker(
                           context: context,

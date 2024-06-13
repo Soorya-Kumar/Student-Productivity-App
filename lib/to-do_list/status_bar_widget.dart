@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 
-class StatusBarTop extends StatefulWidget {
-  const StatusBarTop({super.key});
+class StatusBarTop extends StatelessWidget {
+  const StatusBarTop({super.key, required this.noofPendingTask});
 
-  @override
-  State<StatusBarTop> createState() {
-    return _StatusBarTop();
-  }
-}
-
-class _StatusBarTop extends State<StatusBarTop> {
-  final _noofPendingTask = 0;
+  final int noofPendingTask;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +25,7 @@ class _StatusBarTop extends State<StatusBarTop> {
               width: 10,
             ),
             Text(
-              'YOU HAVE $_noofPendingTask PENDING TASKS',
+              'YOU HAVE $noofPendingTask PENDING TASKS',
               style: const TextStyle(fontSize: 18),
             ),
           ],
