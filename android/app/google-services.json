@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "172407271569",
+    "firebase_url": "https://groceries-app-b740c-default-rtdb.firebaseio.com",
+    "project_id": "groceries-app-b740c",
+    "storage_bucket": "groceries-app-b740c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172407271569:android:81b72c0bd8483e23d50f30",
+        "android_client_info": {
+          "package_name": "com.example.chat_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDR4IuWpmcLDLqBKKp37vRqukBXlPm1O4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172407271569:android:0978ff29ce8b7e5ed50f30",
+        "android_client_info": {
+          "package_name": "com.example.fusion_ease_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDR4IuWpmcLDLqBKKp37vRqukBXlPm1O4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
