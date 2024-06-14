@@ -17,14 +17,14 @@ class AddNewItem extends StatefulWidget {
 
 class _AddNewItem extends State<AddNewItem> {
 
-  var _selectedDate;
-  var _selectedTime;
-  var _selectedPriority;
-  var  _selectedTitle;
+  dynamic _selectedDate;
+  dynamic _selectedTime;
+  String? _selectedPriority;
+  String?  _selectedTitle;
 
   void addTask() {
 
-    if (_selectedTitle == null || _selectedTitle.isEmpty ||
+    if (_selectedTitle == null || _selectedTitle!.isEmpty ||
         _selectedPriority == null ||
         _selectedDate == null ||
         _selectedTime == null) 

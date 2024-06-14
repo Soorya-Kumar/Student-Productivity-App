@@ -180,7 +180,7 @@ class _AddNewItem extends State<AddNewItem> {
                   ),
         
                   const Divider(
-                    color: const Color.fromARGB(255, 0, 0, 0),
+                    color:  Color.fromARGB(255, 0, 0, 0),
                     thickness: 2,
                   ),
         
