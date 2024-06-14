@@ -12,10 +12,12 @@ chat app:
 
 exact same as the one 
 
-notes app:
 
+notes app:
+UI update
 
 
 
 to do list:
 UI update
+uncomment the read part

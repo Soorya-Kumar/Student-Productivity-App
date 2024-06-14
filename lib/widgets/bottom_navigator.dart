@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fusion_ease_app/notes_subapp/landing_page.dart';
 import 'package:fusion_ease_app/screens/main_home_screen.dart';
 import 'package:fusion_ease_app/to-do_list/landing_page.dart';
 
@@ -16,7 +17,7 @@ class _BootomBarState extends State<BootomBar> {
   final List<dynamic> _pages = [
     const MainHomeScreen(),
     const TODOLandingPage(),
-    const MainHomeScreen(),
+    const NotesLandingPage(),
     const MainHomeScreen(),
     const MainHomeScreen(),
   ];
@@ -49,19 +50,23 @@ class _BootomBarState extends State<BootomBar> {
           ),
           BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 121, 51, 243),
-            icon: Icon(Icons.shopping_cart_rounded),
-            label: 'Grocery List',
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Color.fromARGB(255, 121, 51, 243),
             icon: Icon(Icons.chat_rounded),
-            label: 'Chat',
+            label: 'Notes',
           ),
           BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 141, 76, 254),
             icon: Icon(Icons.attach_money_rounded),
             label: 'Expense Tracker',
-          ),/*BottomNavigationBarItem(
+          ),/*
+          BottomNavigationBarItem(
+            backgroundColor: Color.fromARGB(255, 141, 76, 254),
+            icon: Icon(Icons.attach_money_rounded),
+            label: 'Podoromo Timer',
+          ),BottomNavigationBarItem(
+            backgroundColor: Color.fromARGB(255, 141, 76, 254),
+            icon: Icon(Icons.attach_money_rounded),
+            label: Addentance Tracker',
+          ),BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 141, 76, 254),
             icon: Icon(Icons.sports_basketball_rounded),
             label: 'Game',
