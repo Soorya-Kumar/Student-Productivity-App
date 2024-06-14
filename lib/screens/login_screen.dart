@@ -81,6 +81,7 @@ class _LoginScreen extends State<LoginScreen> {
         });
       }
     } on FirebaseAuthException catch (error) {
+      if(!mounted) return;
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
