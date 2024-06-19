@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fusion_ease_app/to-do_list/functions.dart';
 import 'package:fusion_ease_app/to-do_list/status_bar_widget.dart';
 
 final _currAppUser = FirebaseAuth.instance.currentUser!.uid;
@@ -35,46 +36,7 @@ class _ScrollListTODOState extends State<ScrollListTODO> {
     });
   }
 */
-  void deleteTask(taskData, int index){
-    FirebaseFirestore.instance
-        .collection(_currAppUser)
-        .doc('TODO-ITEMS')
-        .update({
-      'tasks': FieldValue.arrayRemove([taskData])
-    });
-
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-      content: const Text('Task successfully completed'),
-      action: SnackBarAction(
-        label: "UNDO",
-        onPressed: () {
-        FirebaseFirestore.instance
-          .collection(_currAppUser)
-          .doc('TODO-ITEMS')
-          .update({'tasks': FieldValue.arrayUnion([taskData])});
-        },
-      ),
-      ),
-    );     
-  }
-
-
-  Color? _colorGiver(String priority){
-    if(priority == 'high')
-    {
-      return Colors.red[100];
-    }
-    else if(priority == 'medium')
-    {
-      return Colors.yellow[100];
-    }
-    else
-    {
-      return Colors.green[100];
-    }
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +94,7 @@ class _ScrollListTODOState extends State<ScrollListTODO> {
                     final taskData = tasks[index];
 
                     return ListTile(
-                      tileColor: _colorGiver(taskData['priority']),
+                      tileColor: colorGiver(taskData['priority']),
                       title: Text(
                         taskData['title'],
                       ),
@@ -142,7 +104,7 @@ class _ScrollListTODOState extends State<ScrollListTODO> {
                       trailing: Checkbox(
                         value: false,
                         onChanged: (bool? value) {
-                          deleteTask(taskData, index);
+                          deleteTask(taskData, index, context);
                         },
                       ),
                     );

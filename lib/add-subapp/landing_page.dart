@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fusion_ease_app/add-subapp/functions.dart';
-import 'package:fusion_ease_app/add-subapp/percentage.dart';
+import 'package:fusion_ease_app/add-subapp/attendance_item_widget.dart';
 
 final _currAppUser = FirebaseAuth.instance.currentUser!.uid;
 

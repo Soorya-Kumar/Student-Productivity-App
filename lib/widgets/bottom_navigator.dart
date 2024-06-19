@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fusion_ease_app/add-subapp/ADDTLandingPage.dart';
+import 'package:fusion_ease_app/add-subapp/landing_page.dart';
+import 'package:fusion_ease_app/daily_planner/daily_planner.dart';
 import 'package:fusion_ease_app/notes_subapp/landing_page.dart';
 import 'package:fusion_ease_app/screens/main_home_screen.dart';
 import 'package:fusion_ease_app/to-do_list/landing_page.dart';
@@ -8,20 +9,26 @@ class BootomBar extends StatefulWidget{
   const BootomBar({super.key, required this.selectedpage});
 
   final int selectedpage;
-
   @override
   State<BootomBar> createState() => _BootomBarState();
 }
 
 class _BootomBarState extends State<BootomBar> {
 
-  final List<dynamic> _pages = [
-    const MainHomeScreen(),
-    const TODOLandingPage(),
-    const NotesLandingPage(),
-    const MainHomeScreen(),
-    const ADDTLandingPage(),
-  ];
+  late List<dynamic> _pages;
+
+  @override
+  void initState() {
+    _pages = [
+      const MainHomeScreen(),
+      const TODOLandingPage(),
+      const NotesLandingPage(),
+      const DailyPlannerScreen(),
+      const ADDTLandingPage(),
+    ];
+    super.initState();
+  }
+  
 
   void _changeselectpage(int index) {
     setState(() {
@@ -51,13 +58,13 @@ class _BootomBarState extends State<BootomBar> {
           ),
           BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 121, 51, 243),
-            icon: Icon(Icons.chat_rounded),
+            icon: Icon(Icons.book_rounded),
             label: 'Notes',
           ),
           BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 141, 76, 254),
-            icon: Icon(Icons.attach_money_rounded),
-            label: 'Expense Tracker',
+            icon: Icon(Icons.calendar_today_rounded),
+            label: 'Daily Planner',
           ),/*
           BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 141, 76, 254),
