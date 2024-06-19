@@ -1,16 +1,30 @@
 
-expense tracker:
-
-first monthly graph
-second monthly data
-third monthly list
-fourth all list
-
-
-
 notes app:
 UI update
 
 to do list:
 UI update
 uncomment the read part
+
+
+123
+179
+71
+
+172
+72
+
+216+22+232
+140+107
+
+265+70+23
+
+213+47+35
+118+36+70
+
+85+78+41
+
+71+58
+
+
+2544
