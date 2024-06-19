@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fusion_ease_app/add-subapp/ADDTLandingPage.dart';
 import 'package:fusion_ease_app/notes_subapp/landing_page.dart';
 import 'package:fusion_ease_app/screens/main_home_screen.dart';
 import 'package:fusion_ease_app/to-do_list/landing_page.dart';
@@ -19,7 +20,7 @@ class _BootomBarState extends State<BootomBar> {
     const TODOLandingPage(),
     const NotesLandingPage(),
     const MainHomeScreen(),
-    const MainHomeScreen(),
+    const ADDTLandingPage(),
   ];
 
   void _changeselectpage(int index) {
@@ -62,11 +63,11 @@ class _BootomBarState extends State<BootomBar> {
             backgroundColor: Color.fromARGB(255, 141, 76, 254),
             icon: Icon(Icons.attach_money_rounded),
             label: 'Podoromo Timer',
-          ),BottomNavigationBarItem(
+          ),*/BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 141, 76, 254),
-            icon: Icon(Icons.attach_money_rounded),
-            label: Addentance Tracker',
-          ),BottomNavigationBarItem(
+            icon: Icon(Icons.assessment_rounded),
+            label: 'Addentance Tracker',
+          ),/*BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 141, 76, 254),
             icon: Icon(Icons.sports_basketball_rounded),
             label: 'Game',
