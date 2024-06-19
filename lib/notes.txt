@@ -8,15 +8,8 @@ fourth all list
 
 
 
-chat app:
-
-exact same as the one 
-
-
 notes app:
 UI update
-
-
 
 to do list:
 UI update
