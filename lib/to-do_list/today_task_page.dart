@@ -35,7 +35,7 @@ class TodayTasksPage extends StatelessWidget {
         if (!snapshots.hasData ||
             !snapshots.data!.exists ||
             snapshots.data!.data() == null) {
-          return const SliverFillRemaining(
+          return const SliverToBoxAdapter(
             child: Center(child: Text('No tasks found')),
           );
         }

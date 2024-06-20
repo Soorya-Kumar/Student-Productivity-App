@@ -18,31 +18,32 @@ class DailyPlannerScreen extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text('Reset Tasks'),
-        content: const Text('Are you sure you want to reset all tasks?'),
-        actions: <Widget>[
-          TextButton(
-            child: const Text('Cancel'),
-            onPressed: () {
-              Navigator.of(context).pop();
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Reset Tasks'),
+                    content:
+                        const Text('Are you sure you want to reset all tasks?'),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('Cancel'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: const Text('Confirm'),
+                        onPressed: () {
+                          ref.read(dailyPlannerProvider.notifier).resetTasks();
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
             },
-          ),
-          TextButton(
-            child: const Text('Confirm'),
-            onPressed: () {
-              ref.read(dailyPlannerProvider.notifier).resetTasks();
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-},
           ),
         ],
       ),
@@ -110,9 +111,12 @@ class DailyPlannerScreen extends ConsumerWidget {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _showAddTaskDialog(context, ref),
-        child: const Icon(Icons.add),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 40),
+        child: FloatingActionButton(
+          onPressed: () => _showAddTaskDialog(context, ref),
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

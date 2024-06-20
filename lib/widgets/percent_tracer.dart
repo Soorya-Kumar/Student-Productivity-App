@@ -6,26 +6,22 @@ class PercentIndicator extends StatelessWidget {
   final double percentage;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 20,
+    return SizedBox(
+      height: 200,
       width: 200,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-        borderRadius: BorderRadius.circular(10),
-      ),
       child: Stack(
             alignment: Alignment.center, 
             children: [
               Text(
-                '${(percentage * 100).toStringAsFixed(1)}%',
+                '${(percentage * 100).toInt()}%',
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(
-                width: 90, 
-                height: 90, 
+                width: 120, 
+                height: 120, 
                 child: CircularProgressIndicator(
                   value: percentage,
                   strokeWidth: 10,
