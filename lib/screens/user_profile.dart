@@ -41,26 +41,31 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const SizedBox(width: 10),
-        CircleAvatar(
-          backgroundImage: NetworkImage(profilePhotoUrl),
-          radius: 14,
-        ),
-        const SizedBox(width: 10),
-        Text(
-          'Hello, $username',
-          style: const TextStyle(fontSize: 14),
-        ),
-        const Spacer(),
-        IconButton(
-          onPressed: () => FirebaseAuth.instance.signOut(),
-          icon: const Icon(Icons.logout_rounded),
-          color: Colors.deepPurple,
-          iconSize: 30,
-        ),
-      ],
+    return Container(
+      color: Colors.deepPurple[50],
+      child: Row(
+        children: [
+          const SizedBox(width: 10),
+          CircleAvatar(
+            backgroundImage: profilePhotoUrl != ''
+                ? NetworkImage(profilePhotoUrl)
+                : Image.asset('assets/unnamed.png').image,
+            radius: 14,
+          ),
+          const SizedBox(width: 10),
+          Text(
+            'Hello, $username',
+            style: const TextStyle(fontSize: 14),
+          ),
+          const Spacer(),
+          IconButton(
+            onPressed: () => FirebaseAuth.instance.signOut(),
+            icon: const Icon(Icons.logout_rounded),
+            color: Colors.deepPurple,
+            iconSize: 30,
+          ),
+        ],
+      ),
     );
   }
 }

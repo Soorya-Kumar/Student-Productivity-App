@@ -21,13 +21,13 @@ class TodayTasksPage extends StatelessWidget {
           .snapshots(),
       builder: (ctx, snapshots) {
         if (snapshots.connectionState == ConnectionState.waiting) {
-          return const SliverFillRemaining(
+          return const SliverToBoxAdapter(
             child: Center(child: CircularProgressIndicator()),
           );
         }
 
         if (snapshots.hasError) {
-          return const SliverFillRemaining(
+          return const SliverToBoxAdapter(
             child: Center(child: Text('SOMETHING WENT WRONG..')),
           );
         }
@@ -45,6 +45,28 @@ class TodayTasksPage extends StatelessWidget {
           return task['date'].toString().substring(0, 10) == today;
         }).toList();
 
+        if (todayTasks.isEmpty) {
+          return SliverToBoxAdapter(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              color: Colors.deepPurple[50],
+              alignment: Alignment.center,
+              child: const Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text('No tasks today !!!\nBut you can always do tomorrow\'s tasks'),
+                    SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                ),
+              
+            ),
+          );
+        }
+        
         return SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
