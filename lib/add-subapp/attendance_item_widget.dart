@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fusion_ease_app/add-subapp/functions.dart';
+import 'package:fusion_ease_app/add-subapp/attd_functions.dart';
 
 
 class PercentageIndicator extends StatefulWidget {

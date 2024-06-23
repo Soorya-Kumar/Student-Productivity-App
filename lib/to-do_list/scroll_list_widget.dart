@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fusion_ease_app/to-do_list/functions.dart';
+import 'package:fusion_ease_app/to-do_list/todo_functions.dart';
 import 'package:fusion_ease_app/to-do_list/status_bar_widget.dart';
 
 final _currAppUser = FirebaseAuth.instance.currentUser!.uid;

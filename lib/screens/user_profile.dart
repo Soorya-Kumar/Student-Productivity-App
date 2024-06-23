@@ -49,7 +49,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
           CircleAvatar(
             backgroundImage: profilePhotoUrl != ''
                 ? NetworkImage(profilePhotoUrl)
-                : Image.asset('assets/unnamed.png').image,
+                : Image.asset('assets/place_holder.png').image,
             radius: 14,
           ),
           const SizedBox(width: 10),

@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fusion_ease_app/daily_planner/provider.dart';
 import 'package:fusion_ease_app/screens/user_profile.dart';
-import 'package:fusion_ease_app/to-do_list/today_task_page.dart';
+import 'package:fusion_ease_app/to-do_list/special_list_page.dart';
+import 'package:fusion_ease_app/to-do_list/todo_provider.dart';
 import 'package:fusion_ease_app/widgets/bottom_navigator.dart';
 import 'package:fusion_ease_app/widgets/percent_tracer.dart';
 
@@ -21,14 +22,7 @@ class MainHomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dailyPlannerState = ref.watch(dailyPlannerProvider);
-    print(userimageurl);
-
-    double percent;
-    if(dailyPlannerState.totalTasks == 0){
-      percent = 0.0;
-    } else {
-      percent = dailyPlannerState.completedTasks / dailyPlannerState.totalTasks;
-    }
+    //print(userimageurl);
     
     return SafeArea(
       child: Scaffold(
@@ -70,21 +64,50 @@ class MainHomeScreen extends ConsumerWidget {
                           ],
                         ),
                         child: const Text(
-                          'TODAY\'S EVENTS AND DEADLINES',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
+                        'TODAY\'S EVENTS AND DEADLINES',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
-                   
-                   const TodayTasksPage(),
-                   
-                   const SliverToBoxAdapter(child: SizedBox(height: 15)),
+                  ),
+                  
+                  SpecialTasksPage(refer: todayTasksProvider, dummy: 'No tasks today !!!\nBut you can always do tomorrow\'s tasks'),
+                  
+                  SliverToBoxAdapter(
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurpleAccent,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            spreadRadius: 0,
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: const Text(
+                        'OVERDUE TASKS',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  
+                  SpecialTasksPage(refer: overdueTasksProvider, dummy: 'No pending tasks!! YOU ARE BEING PRODUCTIVE!!'), 
 
-                   SliverToBoxAdapter(
+                  const SliverToBoxAdapter(child: SizedBox(height: 15)),
+                  
+                  SliverToBoxAdapter(
                       child: Container(
                         margin: const EdgeInsets.all(10),
                         padding: const EdgeInsets.symmetric(vertical: 10),
