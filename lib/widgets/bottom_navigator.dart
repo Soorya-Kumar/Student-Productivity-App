@@ -38,6 +38,9 @@ class _BootomBarState extends State<BootomBar> {
 
   @override
   Widget build(BuildContext context) {
+
+    Color color =  Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(0.7);
+
     return BottomNavigationBar(
         currentIndex: widget.selectedpage,
         selectedItemColor: const Color.fromARGB(255, 248, 248, 248),
@@ -45,25 +48,25 @@ class _BootomBarState extends State<BootomBar> {
         type: BottomNavigationBarType.shifting,
         onTap: _changeselectpage,
 
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            backgroundColor: Color.fromARGB(255, 121, 51, 243),
-            icon: Icon(Icons.home),
+            backgroundColor: color,
+            icon: const Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Color.fromARGB(255, 121, 51, 243),
-            icon: Icon(Icons.check_box_rounded),
+            backgroundColor: color,
+            icon: const Icon(Icons.check_box_rounded),
             label: 'To-do',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Color.fromARGB(255, 121, 51, 243),
-            icon: Icon(Icons.book_rounded),
+            backgroundColor: color,
+            icon: const Icon(Icons.book_rounded),
             label: 'Notes',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Color.fromARGB(255, 141, 76, 254),
-            icon: Icon(Icons.calendar_today_rounded),
+            backgroundColor: color,
+            icon: const Icon(Icons.calendar_today_rounded),
             label: 'Daily Planner',
           ),/*
           BottomNavigationBarItem(
@@ -71,8 +74,8 @@ class _BootomBarState extends State<BootomBar> {
             icon: Icon(Icons.attach_money_rounded),
             label: 'Podoromo Timer',
           ),*/BottomNavigationBarItem(
-            backgroundColor: Color.fromARGB(255, 141, 76, 254),
-            icon: Icon(Icons.assessment_rounded),
+            backgroundColor: color,
+            icon: const Icon(Icons.assessment_rounded),
             label: 'Addentance Tracker',
           ),/*BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 141, 76, 254),

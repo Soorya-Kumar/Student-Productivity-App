@@ -1,37 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fusion_ease_app/notes_subapp/colors_provider.dart';
 import 'package:fusion_ease_app/notes_subapp/edit_note.dart';
 
 final currentUser = FirebaseAuth.instance.currentUser!;
 
 class SingleNotePage extends StatelessWidget {
-  SingleNotePage({Key? key, required this.noteData}) : super(key: key);
+  const SingleNotePage({Key? key, required this.noteData}) : super(key: key);
 
   final Map<String, dynamic> noteData;
-
-  final lightColors = [
-    Colors.amber.shade300,
-    Colors.white,
-    Colors.lightGreen.shade300,
-    Colors.lightBlue.shade300,
-    Colors.orange.shade300,
-    Colors.pinkAccent.shade100,
-    Colors.tealAccent.shade100,
-    Colors.purpleAccent,
-    Colors.greenAccent.shade400,
-    Colors.cyanAccent,
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Colors.white,
-        backgroundColor: const Color.fromARGB(255, 121, 51, 243),
+        backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.9),
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(
           noteData['title'],
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white, fontSize: 24),
         ),
         actions: [
 
@@ -95,7 +83,7 @@ class SingleNotePage extends StatelessWidget {
           child: Text(
             noteData['msg'],
             style: const TextStyle(
-              fontSize: 24,
+              fontSize: 20,
               color: Colors.black,
             ),
           ),

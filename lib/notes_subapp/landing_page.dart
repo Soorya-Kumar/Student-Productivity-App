@@ -9,8 +9,8 @@ class NotesLandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Colors.white,
-        backgroundColor: const Color.fromARGB(255, 121, 51, 243),
+        backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.9),
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: const Text(
           'NOTES',
           style: TextStyle(color: Colors.white),

@@ -64,8 +64,8 @@ class _AddNewItem extends State<AddNewItem> {
     return Card(
       child: Scaffold(
         appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: const Color.fromARGB(255, 121, 51, 243),
+          backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.9),
+          foregroundColor: Theme.of(context).colorScheme.onPrimary,
           title: const Text('Add New Task'),
         ),
         body: Padding(
@@ -74,6 +74,8 @@ class _AddNewItem extends State<AddNewItem> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+             
+             
               Row(
                 children: [
                   Expanded(
@@ -89,8 +91,14 @@ class _AddNewItem extends State<AddNewItem> {
                       onChanged: (newValue) {
                         _selectedTitle = newValue;
                       },
-                      decoration: const InputDecoration(
+                      cursorColor: const Color.fromARGB(255, 29, 125, 241),
+                      cursorWidth: 1.3,
+                      decoration: InputDecoration(
                         labelText: 'Title',
+                        hintText: 'Enter task title',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                        prefixIcon: const Icon(Icons.title),
                       ),
                     ),
                   ),
@@ -99,13 +107,30 @@ class _AddNewItem extends State<AddNewItem> {
                   )
                 ],
               ),
+              
+              
               const SizedBox(
                 height: 10,
               ),
-              DropdownButton<String>(
+              
+              
+              DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                  labelText: 'Select Priority',
+                  prefixIcon: const Icon(Icons.priority_high),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                ),
                 value: _selectedPriority,
-                alignment: Alignment.centerLeft,
-                hint: const Text('Select Priority'),
+                icon: const Icon(Icons.arrow_drop_down_circle_outlined),
+                iconSize: 24,
+                elevation: 16,
+                style: const TextStyle(fontSize: 16, color: Colors.black),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _selectedPriority = newValue;
+                  });
+                },
                 items: const [
                   DropdownMenuItem(
                     value: 'low',
@@ -120,24 +145,18 @@ class _AddNewItem extends State<AddNewItem> {
                     child: Text('High'),
                   ),
                 ],
-                onChanged: (value) {
-                  setState(() {
-                    _selectedPriority = value;
-                  });
-                },
               ),
+              
               const SizedBox(
-                height: 10,
+                height: 30,
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      readOnly: true,
-                      controller: TextEditingController(text: (_selectedDate != null)
+             
+             TextFormField(
+              readOnly: true,
+              controller: TextEditingController(text: (_selectedDate != null)
                             ? '${_selectedDate.year} / ${_selectedDate.month} / ${_selectedDate.day}'
                             : 'yyyy/mm//dd',),
-                      onTap: () async {
+              onTap: () async {
                         final date = await showDatePicker(
                           context: context,
                           initialDate: DateTime.now(),
@@ -150,59 +169,59 @@ class _AddNewItem extends State<AddNewItem> {
                           });
                         }
                       },
-                      decoration: const InputDecoration(
-                        label: Text("Date"),
-                        icon: Icon(Icons.calendar_month_rounded),
-                        
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 80,
-                  )
-                ],
+              decoration: InputDecoration(
+                labelText: 'Date',
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                prefixIcon: const Icon(Icons.calendar_today),
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      readOnly: true,
-                      controller: TextEditingController(text: (_selectedTime != null)
-                            ? '${_selectedTime.hour} : ${_selectedTime.minute}'
-                            : 'hh/mm',),
-                      onTap: () async {
-                        final TimeOfDay? pickedTime = await showTimePicker(
-                          context: context,
-                          initialTime: TimeOfDay.now(),
-                        );
-                        if (pickedTime != null) {
-                          setState(() {
-                            _selectedTime = pickedTime;
-                          });
-                        }
-                      },
-                      decoration: InputDecoration(
-                        label: const Text("Time"),
-                        icon: const Icon(Icons.av_timer_rounded),
-                        hintText: (_selectedTime != null)
-                            ? '${_selectedTime.hour} : ${_selectedTime.minute}'
-                            : 'hh/mm',
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 80,
-                  )
-                ],
+            ),
+             
+             const SizedBox(
+                height: 30,
               ),
+
+              TextFormField(
+                readOnly: true,
+                controller: TextEditingController(
+                    text: _selectedTime != null
+                        ? _selectedTime.format(context)
+                        : ''),
+                onTap: () async {
+                  final TimeOfDay? pickedTime = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                  );
+                  if (pickedTime != null) {
+                    setState(() {
+                      _selectedTime = pickedTime;
+                    });
+                  }
+                },
+                decoration: InputDecoration(
+                  labelText: 'Time',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                  prefixIcon: const Icon(Icons.access_time),
+                ),
+            ),
+              
               const SizedBox(
-                height: 10,
+                height: 30,
               ),
-              FilledButton(
-                  onPressed: () {
-                    addTask();
-                  },
-                  child: const Text('Add Task')),
+              
+              ElevatedButton(
+                onPressed: addTask,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      Theme.of(context).colorScheme.primary.withOpacity(0.9),
+                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                  minimumSize: const Size.fromHeight(50),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                ),
+                child: const Text('Add Task'),
+              ),
+
             ],
           ),
         ),

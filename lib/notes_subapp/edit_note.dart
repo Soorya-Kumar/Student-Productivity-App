@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fusion_ease_app/notes_subapp/colors_provider.dart';
 
 final currentUser = FirebaseAuth.instance.currentUser!;
 
@@ -20,19 +21,6 @@ class _EditNote extends State<EditNote> {
   String? _selectedDateTime;
   String? _selectedMsg;
   int? _colorIndex;
-  
-  final lightColors = [
-    Colors.amber.shade300,
-    Colors.white,
-    Colors.lightGreen.shade300,
-    Colors.lightBlue.shade300,
-    Colors.orange.shade300,
-    Colors.pinkAccent.shade100,
-    Colors.tealAccent.shade100,
-    Colors.purpleAccent,
-    Colors.greenAccent.shade400,
-    Colors.cyanAccent,
-  ];
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController msgController = TextEditingController();
@@ -99,8 +87,8 @@ class _EditNote extends State<EditNote> {
     return Card(
       child: Scaffold(
         appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: const Color.fromARGB(255, 121, 51, 243),
+          backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.9),
+          foregroundColor: Theme.of(context).colorScheme.onPrimary,
           actions: [
             IconButton(
               icon: const Icon(Icons.save),

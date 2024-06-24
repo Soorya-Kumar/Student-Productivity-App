@@ -7,94 +7,97 @@ final _currAppUser = FirebaseAuth.instance.currentUser!.uid;
 dynamic addSubject(BuildContext context) {
   return showModalBottomSheet(
     isScrollControlled: true,
-    context: context,
+    context: context,    
+    backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+    shape: ContinuousRectangleBorder(
+      borderRadius: BorderRadius.circular(24),
+    ),
     builder: (BuildContext context) {
       String subjectName = '';
       int totalClass = 0;
       int attendedClass = 0;
       final formKey = GlobalKey<FormState>();
 
-      return Container(
-        color: const Color.fromARGB(255, 252, 237, 255),
-        padding: const EdgeInsets.all(16),
-        child: Form(
-          key: formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                onChanged: (value) {
-                  subjectName = value;
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a subject name';
-                  }
-                  return null;                
-                },
-                autocorrect: true,
-                decoration: const InputDecoration(
-                  labelText: 'Subject Name',
+      return Padding(
+        padding: const EdgeInsets.all(17),
+        child: Form(  
+            key: formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  onChanged: (value) {
+                    subjectName = value;
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a subject name';
+                    }
+                    return null;                
+                  },
+                  autocorrect: true,
+                  decoration: const InputDecoration(
+                    labelText: 'Subject Name',
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                onChanged: (value) {
-                  totalClass = int.tryParse(value) ?? 0;
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty || int.tryParse(value) == null) {
-                    return 'Please enter total classes';
-                  }
-                  return null;             
-                },
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Total Classes',
+                const SizedBox(height: 16),
+                TextFormField(
+                  onChanged: (value) {
+                    totalClass = int.tryParse(value) ?? 0;
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty || int.tryParse(value) == null) {
+                      return 'Please enter total classes';
+                    }
+                    return null;             
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Total Classes',
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                onChanged: (value) {
-                  attendedClass = int.tryParse(value) ?? 0;
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty || int.tryParse(value) == null) {
-                    return 'Please enter attended classes';
-                  }
-                  if(int.tryParse(value)! > totalClass){
-                    return 'Attended classes cannot be greater than total classes';
-                  }
-                  return null;             
-                },
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Attended Classes',
+                const SizedBox(height: 16),
+                TextFormField(
+                  onChanged: (value) {
+                    attendedClass = int.tryParse(value) ?? 0;
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty || int.tryParse(value) == null) {
+                      return 'Please enter attended classes';
+                    }
+                    if(int.tryParse(value)! > totalClass){
+                      return 'Attended classes cannot be greater than total classes';
+                    }
+                    return null;             
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Attended Classes',
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              FilledButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    FirebaseFirestore.instance
-                        .collection(_currAppUser)
-                        .doc('ATTD VALUES')
-                        .collection('values')
-                        .doc(subjectName)
-                        .set({
-                      'subject': subjectName,
-                      'total': totalClass,
-                      'attended': attendedClass,
-                    });
-
-                    Navigator.of(context).pop();
-                  }
-                },
-                child: const Text('Add'),
-              ),
-            ],
+                const SizedBox(height: 16),
+                FilledButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      FirebaseFirestore.instance
+                          .collection(_currAppUser)
+                          .doc('ATTD VALUES')
+                          .collection('values')
+                          .doc(subjectName)
+                          .set({
+                        'subject': subjectName,
+                        'total': totalClass,
+                        'attended': attendedClass,
+                      });
+      
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: const Text('Add'),
+                ),
+              ],
+            ),
           ),
-        ),
       );
     },
   );
@@ -114,7 +117,7 @@ dynamic deleteItem(BuildContext context, int tot, int att, String subjectName) {
               Navigator.of(context).pop();
             },
           ),
-          TextButton(
+          FilledButton(
             child: const Text("Delete"),
             onPressed: () {
               FirebaseFirestore.instance

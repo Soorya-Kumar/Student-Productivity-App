@@ -71,6 +71,7 @@ flutter:
   assets:
     - assets/background-2.png
     - assets/addphoto.png
+    - assets/tick.jpg
     - assets/place_holder.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

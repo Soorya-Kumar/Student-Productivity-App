@@ -15,7 +15,7 @@ class SpecialTasksPage extends ConsumerWidget {
       return SliverToBoxAdapter(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12),
-          color: Colors.deepPurple[50],
+          color: Colors.blue[50],
           alignment: Alignment.center,
           child: Column(
             children: [

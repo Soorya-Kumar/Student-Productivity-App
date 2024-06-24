@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fusion_ease_app/notes_subapp/colors_provider.dart';
 import 'package:fusion_ease_app/notes_subapp/view_note.dart';
 
 final _currAppUser = FirebaseAuth.instance.currentUser!.uid;
@@ -12,20 +13,7 @@ class ScrollListNOTES extends StatefulWidget {
   State<ScrollListNOTES> createState() => _ScrollListNOTESState();
 }
 
-class _ScrollListNOTESState extends State<ScrollListNOTES> {
-
-  List lightColors = [
-    const Color.fromARGB(255, 235, 221, 175),
-    Colors.white,
-    const Color.fromARGB(255, 196, 231, 155),
-    const Color.fromARGB(255, 160, 213, 237),
-    const Color.fromARGB(255, 233, 199, 148),
-    const Color.fromARGB(255, 245, 204, 218),
-    const Color.fromARGB(255, 169, 240, 223),
-    const Color.fromARGB(255, 227, 166, 237),
-    const Color.fromARGB(255, 166, 242, 205),
-    const Color.fromARGB(255, 146, 226, 226),
-  ];
+  class _ScrollListNOTESState extends State<ScrollListNOTES> {
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +86,7 @@ class _ScrollListNOTESState extends State<ScrollListNOTES> {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -109,17 +97,17 @@ class _ScrollListNOTESState extends State<ScrollListNOTES> {
                                   Text(
                                     noteData['date'],
                                     style: const TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 14,
                                       color: Color.fromARGB(255, 0, 0, 0),
                                     ),
                                   ),
-                                  const SizedBox(height: 20),
+                                  const SizedBox(height: 30),
                                   Text(
                                     noteData['msg'],
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 17,
                                       color: Color.fromARGB(255, 9, 8, 8),
                                     ),
                                   ),

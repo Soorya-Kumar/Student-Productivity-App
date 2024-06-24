@@ -31,17 +31,12 @@ void deleteTask(taskData, int index, BuildContext context){
 }
 
 
-Color? colorGiver(String priority){
-    if(priority == 'high')
-    {
-      return Colors.red[100];
-    }
-    else if(priority == 'medium')
-    {
-      return Colors.yellow[100];
-    }
-    else
-    {
-      return Colors.green[100];
-    }
+Color? colorGiver(String priority) {
+  if (priority == 'high') {
+    return Colors.red[100];
+  } else if (priority == 'medium') {
+    return Colors.yellow[100];
+  } else {
+    return Colors.green[100];
   }
+}

@@ -31,7 +31,7 @@ class _PercentageIndicatorState extends State<PercentageIndicator> {
 
     return Container(
       alignment: Alignment.center,
-      color: Colors.purple[200],
+      color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
       width: MediaQuery.of(context).size.width,
       height: 200,
       child: Row(
@@ -48,7 +48,7 @@ class _PercentageIndicatorState extends State<PercentageIndicator> {
                     child: Text(subject,
                         overflow: TextOverflow.ellipsis,
                         softWrap: true,
-                        style: const TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 20, color: Theme.of(context).colorScheme.onSecondaryContainer),
                         maxLines: 2),
                   ),
                 ),
@@ -59,7 +59,7 @@ class _PercentageIndicatorState extends State<PercentageIndicator> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    backgroundColor: MaterialStateProperty.all(Colors.green),
+                    backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primary.withOpacity(0.7)),
                   ),
                   onPressed: () {
                     presentButtonFunction(subject);
@@ -73,7 +73,7 @@ class _PercentageIndicatorState extends State<PercentageIndicator> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    backgroundColor: MaterialStateProperty.all(Colors.red),
+                    backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primary.withOpacity(0.4)),
                   ),
                   onPressed: () {
                     absentButtonFunction(subject);
@@ -101,7 +101,7 @@ class _PercentageIndicatorState extends State<PercentageIndicator> {
                   value: percentage,
                   strokeWidth: 10,
                   backgroundColor: Colors.grey[200],
-                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.purple),
+                  valueColor: AlwaysStoppedAnimation<Color>(percentage < 0.75 ? Colors.red[400]! : Colors.green[400]!),
                 ),
               ),
             ],
@@ -113,7 +113,7 @@ class _PercentageIndicatorState extends State<PercentageIndicator> {
               onPressed: () {
                 deleteItem(context, totClass, attendedClass ,subject);
               },
-              icon: const Icon(Icons.delete_rounded, color: Colors.red),
+              icon: Icon(Icons.delete_rounded, color: Theme.of(context).colorScheme.error),
             ),
           ),
         ],

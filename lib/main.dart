@@ -19,7 +19,7 @@ void main() async {
 
 final appTheme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
-    seedColor: const Color.fromARGB(255, 100, 11, 255),
+    seedColor: const Color.fromARGB(20,110,180, 255),
   ),
   useMaterial3: true,
 );

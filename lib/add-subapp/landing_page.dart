@@ -13,7 +13,9 @@ class ADDTLandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('ATTENDANCE DASHBOARD'),
+          backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.9),
+          foregroundColor: Theme.of(context).colorScheme.onPrimary,
+          title: const Text('DASHBOARD'),
           actions: [
             IconButton(
               onPressed: () {

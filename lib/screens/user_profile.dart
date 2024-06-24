@@ -42,7 +42,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.deepPurple[50],
+      color: Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(0.2),
       child: Row(
         children: [
           const SizedBox(width: 10),
@@ -58,10 +58,36 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
             style: const TextStyle(fontSize: 14),
           ),
           const Spacer(),
+          
           IconButton(
-            onPressed: () => FirebaseAuth.instance.signOut(),
-            icon: const Icon(Icons.logout_rounded),
-            color: Colors.deepPurple,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Sign Out'),
+                    content: const Text('Are you sure you want to log out?'),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('Cancel'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: const Text('Log Out'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          FirebaseAuth.instance.signOut();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            icon: const Icon(Icons.switch_account_sharp),
+            color: Theme.of(context).colorScheme.onTertiaryContainer,
             iconSize: 30,
           ),
         ],

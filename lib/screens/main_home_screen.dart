@@ -52,7 +52,7 @@ class MainHomeScreen extends ConsumerWidget {
                         margin: const EdgeInsets.all(10),
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         decoration: BoxDecoration(
-                          color: Colors.deepPurpleAccent,
+                          color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
@@ -81,7 +81,7 @@ class MainHomeScreen extends ConsumerWidget {
                       margin: const EdgeInsets.all(10),
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
-                        color: Colors.deepPurpleAccent,
+                        color: Theme.of(context).colorScheme.error.withOpacity(0.6),
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
@@ -112,7 +112,7 @@ class MainHomeScreen extends ConsumerWidget {
                         margin: const EdgeInsets.all(10),
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         decoration: BoxDecoration(
-                          color: Colors.deepPurpleAccent,
+                          color:Theme.of(context).colorScheme.primary.withOpacity(0.8),
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
@@ -175,8 +175,6 @@ class MainHomeScreen extends ConsumerWidget {
             ),
           ],
         ),
-        
-        
         
         bottomNavigationBar: const BootomBar(selectedpage: 0),
       ),
