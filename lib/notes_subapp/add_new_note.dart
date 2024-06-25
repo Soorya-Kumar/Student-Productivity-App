@@ -77,121 +77,123 @@ class _AddNewItem extends State<AddNewItem> {
   @override
   Widget build(BuildContext context) {
 
-    return Card(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.9),
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.save),
-              onPressed: addNote,
-            ),],
-          title: const Text('Add New Note'),
-        ),
-        
-        body: Container(
-          color: lightColors[_colorIndex],
-          child: Padding(
-            padding: const EdgeInsets.all(30),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      
-                      Expanded(
-                        flex: 8, 
-                        child: TextFormField(
-                          maxLines: null,
-                          autofocus: true,
-                          controller: titleController,
-                          keyboardType: TextInputType.multiline,
-                          textCapitalization: TextCapitalization.sentences,
-                          decoration: const InputDecoration.collapsed(
-                            hintText: "Title",
-                          ),
-                          style: const TextStyle(
-                            fontSize: 36.0,
-                            fontWeight: FontWeight.w500,
+    return SafeArea(
+      child: Card(
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.9),
+            foregroundColor: Theme.of(context).colorScheme.onPrimary,
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.save),
+                onPressed: addNote,
+              ),],
+            title: const Text('Add New Note'),
+          ),
+          
+          body: Container(
+            color: lightColors[_colorIndex],
+            child: Padding(
+              padding: const EdgeInsets.all(30),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        
+                        Expanded(
+                          flex: 8, 
+                          child: TextFormField(
+                            maxLines: null,
+                            autofocus: true,
+                            controller: titleController,
+                            keyboardType: TextInputType.multiline,
+                            textCapitalization: TextCapitalization.sentences,
+                            decoration: const InputDecoration.collapsed(
+                              hintText: "Title",
+                            ),
+                            style: const TextStyle(
+                              fontSize: 36.0,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
-                      ),
-                      
-                      const SizedBox(
-                        width: 1,
-                      ),
-                      
-                      Flexible(
-                        flex: 2, 
-                        child: DropdownButtonFormField<int>(
-                          value: _colorIndex,
-                          dropdownColor: Colors.grey,
-                          decoration: const InputDecoration(
-                            fillColor: Colors.grey,
-                            filled: true,
-                            border: OutlineInputBorder(), 
-                          ),
-                          items: [
-                            for (final color in lightColors)
-                              DropdownMenuItem(
-                                value: lightColors.indexOf(color),
-                                child: Container(
-                                  height: 20,
-                                  width: 20,
-                                  color: color,
+                        
+                        const SizedBox(
+                          width: 1,
+                        ),
+                        
+                        Flexible(
+                          flex: 2, 
+                          child: DropdownButtonFormField<int>(
+                            value: _colorIndex,
+                            dropdownColor: Colors.grey,
+                            decoration: const InputDecoration(
+                              fillColor: Colors.grey,
+                              filled: true,
+                              border: OutlineInputBorder(), 
+                            ),
+                            items: [
+                              for (final color in lightColors)
+                                DropdownMenuItem(
+                                  value: lightColors.indexOf(color),
+                                  child: Container(
+                                    height: 20,
+                                    width: 20,
+                                    color: color,
+                                  ),
                                 ),
-                              ),
-                          ],
-                          onChanged: (value) {
-                            setState(() {
-                              _colorIndex = value!;
-                            });
-                          },
+                            ],
+                            onChanged: (value) {
+                              setState(() {
+                                _colorIndex = value!;
+                              });
+                            },
+                          ),
                         ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+              
+                    Text(
+                      'Created on   ${_selectedDateTime.toString().substring(0, 11)}  ${_selectedDateTime.toString().substring(11, 16)}',
+                    ),
+              
+                    const SizedBox(
+                      height: 12,
+                    ),
+          
+                    const Divider(
+                      color:  Color.fromARGB(255, 0, 0, 0),
+                      thickness: 2,
+                    ),
+          
+                    const SizedBox(
+                      height: 30,
+                    ),
+          
+                    TextFormField(
+                      maxLines: null,
+                      autocorrect: true,
+                      enableSuggestions: true,
+                      controller: msgController,
+                      keyboardType: TextInputType.multiline,
+                      textCapitalization: TextCapitalization.sentences,
+                      decoration: InputDecoration.collapsed(
+                        fillColor: lightColors[_colorIndex],
+                        filled: true,
+                        hintText: "Click here and start typing... \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-            
-                  Text(
-                    'Created on   ${_selectedDateTime.toString().substring(0, 11)}  ${_selectedDateTime.toString().substring(11, 16)}',
-                  ),
-            
-                  const SizedBox(
-                    height: 12,
-                  ),
-        
-                  const Divider(
-                    color:  Color.fromARGB(255, 0, 0, 0),
-                    thickness: 2,
-                  ),
-        
-                  const SizedBox(
-                    height: 30,
-                  ),
-        
-                  TextFormField(
-                    maxLines: null,
-                    autocorrect: true,
-                    enableSuggestions: true,
-                    controller: msgController,
-                    keyboardType: TextInputType.multiline,
-                    textCapitalization: TextCapitalization.sentences,
-                    decoration: InputDecoration.collapsed(
-                      fillColor: lightColors[_colorIndex],
-                      filled: true,
-                      hintText: "Click here and start typing... \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+                      style: const TextStyle(
+                        fontSize: 17,
+                      ),
                     ),
-                    style: const TextStyle(
-                      fontSize: 17,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

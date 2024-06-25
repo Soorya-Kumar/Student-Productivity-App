@@ -60,13 +60,23 @@ class DailyPlannerNotifier extends StateNotifier<DailyPlannerState> {
     }
   }
 
-  
+  void clearParticularTask(int index) {
+    state = state.copyWith(
+      dailyPlanner: List.from(state.dailyPlanner)..[index] = '',
+      isTaskCompleted: List.from(state.isTaskCompleted)..[index] = false,
+      totalTasks: state.totalTasks - 1,
+      completedTasks: state.isTaskCompleted[index]
+          ? state.completedTasks - 1
+          : state.completedTasks,
+    );
+  }
+
   void resetTasks() {
-  state = DailyPlannerState(
-    dailyPlanner: List.filled(18, ''),
-    isTaskCompleted: List.filled(18, false),
-    completedTasks: 0,
-    totalTasks: 0,
-  );
-}
+    state = DailyPlannerState(
+      dailyPlanner: List.filled(18, ''),
+      isTaskCompleted: List.filled(18, false),
+      completedTasks: 0,
+      totalTasks: 0,
+    );
+  }
 }

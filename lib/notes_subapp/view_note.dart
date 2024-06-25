@@ -13,78 +13,80 @@ class SingleNotePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.9),
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        title: Text(
-          noteData['title'],
-          style: const TextStyle(color: Colors.white, fontSize: 24),
-        ),
-        actions: [
-
-          IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (ctx) {
-                    return EditNote(
-                      noteData: noteData,
-                    );
-                  },
-                ),
-              );
-            },
-            
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.9),
+          foregroundColor: Theme.of(context).colorScheme.onPrimary,
+          title: Text(
+            noteData['title'],
+            style: const TextStyle(color: Colors.white, fontSize: 24),
           ),
-
-
-          IconButton(
-            icon: const Icon(Icons.delete),
-            onPressed: () {
-              FirebaseFirestore.instance
-                  .collection(currentUser.uid)
-                  .doc('NOTES')
-                  .update({
-                'notes': FieldValue.arrayRemove([noteData])
-              });
-
-              ScaffoldMessenger.of(context).clearSnackBars();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: const Text('Note successfully deleted'),
-                  action: SnackBarAction(
-                    label: "UNDO",
-                    onPressed: () {
-                      FirebaseFirestore.instance
-                          .collection(currentUser.uid)
-                          .doc('NOTES')
-                          .update({
-                        'notes': FieldValue.arrayUnion([noteData])
-                      });
+          actions: [
+    
+            IconButton(
+              icon: const Icon(Icons.edit),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) {
+                      return EditNote(
+                        noteData: noteData,
+                      );
                     },
                   ),
-                ),
-              );
-              Navigator.of(context).pop();
-            },
-          ),
-
-          
-        ],
-      ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        color: lightColors[noteData['color']],
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Text(
-            noteData['msg'],
-            style: const TextStyle(
-              fontSize: 20,
-              color: Colors.black,
+                );
+              },
+              
+            ),
+    
+    
+            IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () {
+                FirebaseFirestore.instance
+                    .collection(currentUser.uid)
+                    .doc('NOTES')
+                    .update({
+                  'notes': FieldValue.arrayRemove([noteData])
+                });
+    
+                ScaffoldMessenger.of(context).clearSnackBars();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text('Note successfully deleted'),
+                    action: SnackBarAction(
+                      label: "UNDO",
+                      onPressed: () {
+                        FirebaseFirestore.instance
+                            .collection(currentUser.uid)
+                            .doc('NOTES')
+                            .update({
+                          'notes': FieldValue.arrayUnion([noteData])
+                        });
+                      },
+                    ),
+                  ),
+                );
+                Navigator.of(context).pop();
+              },
+            ),
+    
+            
+          ],
+        ),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          color: lightColors[noteData['color']],
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Text(
+              noteData['msg'],
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+              ),
             ),
           ),
         ),

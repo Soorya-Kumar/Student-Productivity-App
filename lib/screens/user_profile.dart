@@ -74,7 +74,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                           Navigator.of(context).pop();
                         },
                       ),
-                      TextButton(
+                      FilledButton(
                         child: const Text('Log Out'),
                         onPressed: () {
                           Navigator.of(context).pop();

@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fusion_ease_app/daily_planner/manage_planner.dart';
 import 'package:fusion_ease_app/daily_planner/provider.dart';
 
-class DailyPlannerScreen extends ConsumerWidget {
-  const DailyPlannerScreen({super.key});
+class ManageDaily extends ConsumerWidget {
+  const ManageDaily({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dailyPlannerState = ref.watch(dailyPlannerProvider);
-    final allottedTasks = dailyPlannerState.dailyPlanner
-        .asMap()
-        .entries
-        .where((entry) => entry.value.isNotEmpty)
-        .toList();
 
     return SafeArea(
       child: Scaffold(
@@ -54,78 +48,74 @@ class DailyPlannerScreen extends ConsumerWidget {
             ),
           ],
         ),
+        body: ListView.builder(
+          itemCount: dailyPlannerState.dailyPlanner.length,
+          itemBuilder: (context, index) {
+            int hour = index + 5;
     
-        body: allottedTasks.isNotEmpty
-            ? ListView.builder(
-                itemCount: allottedTasks.length,
-                itemBuilder: (context, index) {
-                  final entry = allottedTasks[index];
-                  int hour = entry.key + 5;
-    
-                  return Card(
-                    elevation: 4.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    color: dailyPlannerState.isTaskCompleted[entry.key]
-                        ? Colors.green[100]
-                        : Colors.grey[200],
-                    child: Container(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            return Card(
+              elevation: 4.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              color: dailyPlannerState.isTaskCompleted[index]
+                  ? Colors.green[100]
+                  : Colors.grey[200],
+              child: Container(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             '$hour:00',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: dailyPlannerState.isTaskCompleted[entry.key]
+                              color: dailyPlannerState.isTaskCompleted[index]
                                   ? Colors.green
                                   : Colors.blue,
                             ),
                           ),
-                          const SizedBox(width: 8), 
-                          Expanded(
-                            child: Text(
-                              entry.value,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontStyle: FontStyle.italic,
-                              ),
-                              overflow: TextOverflow.ellipsis,
+                          const SizedBox(height: 5),
+                          Text(
+                            dailyPlannerState.dailyPlanner[index],
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontStyle: FontStyle.italic,
                             ),
-                          ),
-                          Transform.scale(
-                            scale: 1,
-                            child: Checkbox(
-                              value: dailyPlannerState.isTaskCompleted[entry.key],
-                              onChanged: (bool? value) {
-                                if (value != null) {
-                                  ref
-                                      .read(dailyPlannerProvider.notifier)
-                                      .toggleTaskCompletion(entry.key, value);
-                                }
-                              },
-                              activeColor: Colors.green,
-                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),
                     ),
-                  );
-                },
-              )
-            : const Center(child: Text('Start planning your day to see it here')),
-    
-      floatingActionButton: Padding(
+                    Transform.scale(
+                      scale: 1,
+                      child: IconButton(
+                        onPressed: () {
+                          ref
+                              .read(dailyPlannerProvider.notifier)
+                              .clearParticularTask(index);
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+        floatingActionButton: Padding(
           padding: const EdgeInsets.only(bottom: 40),
-          child: FloatingActionButton.extended(
-            onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ManageDaily()));
-            },
-            icon: const Icon(Icons.edit_rounded),
-            label: const Text("Manage Schedule"),
+          child: FloatingActionButton(
+            onPressed: () => _showAddTaskDialog(context, ref),
+            child: const Icon(Icons.edit),
           ),
         ),
       ),
@@ -183,6 +173,4 @@ class DailyPlannerScreen extends ConsumerWidget {
       },
     );
   }
-
-  
 }
