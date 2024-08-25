@@ -11,7 +11,7 @@ class SpecialTasksPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final specialTasks = ref.watch(refer);
 
-    if (specialTasks.isEmpty) {
+    if (specialTasks.isEmpty && dummy != '') {
       return SliverToBoxAdapter(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12),

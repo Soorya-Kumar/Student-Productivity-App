@@ -62,3 +62,8 @@ final overdueTasksProvider = Provider.autoDispose<List>((ref) {
     return overDueChecker(today, task['date']);
   }).toList();
 });
+
+final hasOverdueTasksProvider = Provider.autoDispose<bool>((ref) {
+  final overdueTasks = ref.watch(overdueTasksProvider);
+  return overdueTasks.isNotEmpty;
+});

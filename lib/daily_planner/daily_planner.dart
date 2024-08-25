@@ -30,8 +30,7 @@ class DailyPlannerScreen extends ConsumerWidget {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: const Text('Reset Tasks'),
-                      content:
-                          const Text('Are you sure you want to reset all tasks?'),
+                      content: const Text('Are you sure you want to reset all tasks?'),
                       actions: <Widget>[
                         TextButton(
                           child: const Text('Cancel'),
@@ -54,75 +53,101 @@ class DailyPlannerScreen extends ConsumerWidget {
             ),
           ],
         ),
-    
         body: allottedTasks.isNotEmpty
-            ? ListView.builder(
-                itemCount: allottedTasks.length,
-                itemBuilder: (context, index) {
-                  final entry = allottedTasks[index];
-                  int hour = entry.key + 5;
-    
-                  return Card(
-                    elevation: 4.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+            ? Padding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+              child: Column(
+                children: [
+
+                  Text(
+                    'Today\'s Schedule',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
-                    color: dailyPlannerState.isTaskCompleted[entry.key]
-                        ? Colors.green[100]
-                        : Colors.grey[200],
-                    child: Container(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '$hour:00',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: dailyPlannerState.isTaskCompleted[entry.key]
-                                  ? Colors.green
-                                  : Colors.blue,
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: allottedTasks.length,
+                        itemBuilder: (context, index) {
+                          final entry = allottedTasks[index];
+                          int hour = entry.key;
+                          String displayTime ;
+                              
+                          if (hour == 0) {
+                            displayTime = "12 AM";
+                          } else if (hour < 12) {
+                            displayTime = "$hour AM";
+                          } else if (hour == 12) {
+                            displayTime = "12 PM";
+                          } else {
+                            displayTime = "${hour - 12} PM";
+                          }
+                              
+                          return Container(
+                            color: dailyPlannerState.isTaskCompleted[entry.key]
+                                ? Colors.green[100]
+                                : Colors.white,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width: 60,
+                                  child: Text(
+                                    displayTime,
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: dailyPlannerState.isTaskCompleted[entry.key]
+                                          ? Colors.green
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                //const Special(),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    entry.value,
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                Transform.scale(
+                                  scale: 1,
+                                  child: Checkbox(
+                                    value: dailyPlannerState.isTaskCompleted[entry.key],
+                                    onChanged: (bool? value) {
+                                      if (value != null) {
+                                        ref
+                                            .read(dailyPlannerProvider.notifier)
+                                            .toggleTaskCompletion(entry.key, value);
+                                      }
+                                    },
+                                    activeColor: Colors.green,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          const SizedBox(width: 8), 
-                          Expanded(
-                            child: Text(
-                              entry.value,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontStyle: FontStyle.italic,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          Transform.scale(
-                            scale: 1,
-                            child: Checkbox(
-                              value: dailyPlannerState.isTaskCompleted[entry.key],
-                              onChanged: (bool? value) {
-                                if (value != null) {
-                                  ref
-                                      .read(dailyPlannerProvider.notifier)
-                                      .toggleTaskCompletion(entry.key, value);
-                                }
-                              },
-                              activeColor: Colors.green,
-                            ),
-                          ),
-                        ],
+                          );
+                        },
                       ),
-                    ),
-                  );
-                },
-              )
+                  ),
+                ],
+              ),
+            )
             : const Center(child: Text('Start planning your day to see it here')),
-    
-      floatingActionButton: Padding(
+        floatingActionButton: Padding(
           padding: const EdgeInsets.only(bottom: 40),
           child: FloatingActionButton.extended(
             onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ManageDaily()));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ManageDailyy()));
             },
             icon: const Icon(Icons.edit_rounded),
             label: const Text("Manage Schedule"),
@@ -131,58 +156,4 @@ class DailyPlannerScreen extends ConsumerWidget {
       ),
     );
   }
-
-  void _showAddTaskDialog(BuildContext context, WidgetRef ref) {
-    int selectedHour = 5;
-    String task = '';
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Add Task'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              DropdownButtonFormField<int>(
-                value: selectedHour,
-                onChanged: (value) {
-                  if (value != null) {
-                    selectedHour = value;
-                  }
-                },
-                items: List.generate(19, (index) => index + 5)
-                    .map((hour) => DropdownMenuItem<int>(
-                          value: hour,
-                          child: Text('$hour:00'),
-                        ))
-                    .toList(),
-              ),
-              TextField(
-                onChanged: (value) {
-                  task = value;
-                },
-                decoration: const InputDecoration(
-                  labelText: 'Task',
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                ref
-                    .read(dailyPlannerProvider.notifier)
-                    .addTask(selectedHour, task);
-                Navigator.pop(context);
-              },
-              child: const Text('Add'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  
 }

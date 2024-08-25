@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final dailyPlannerProvider =
@@ -36,13 +37,13 @@ class DailyPlannerState {
 class DailyPlannerNotifier extends StateNotifier<DailyPlannerState> {
   DailyPlannerNotifier()
       : super(DailyPlannerState(
-            dailyPlanner: List.filled(18, ''),
-            isTaskCompleted: List.filled(18, false)));
+            dailyPlanner: List.filled(24, ''),
+            isTaskCompleted: List.filled(24, false)));
 
   void addTask(int hour, String task) {
-    if (hour >= 5 && hour <= 23) {
+    if (hour >= 0 && hour <= 23) {
       state = state.copyWith(
-        dailyPlanner: List.from(state.dailyPlanner)..[hour - 5] = task,
+        dailyPlanner: List.from(state.dailyPlanner)..[hour] = task,
         totalTasks: state.totalTasks + 1,
       );
     }
@@ -60,6 +61,39 @@ class DailyPlannerNotifier extends StateNotifier<DailyPlannerState> {
     }
   }
 
+  void addParticularTask(BuildContext context, int index) {
+    TextEditingController taskController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Enter Task'),
+          content: TextField(
+            controller: taskController,
+            decoration: const InputDecoration(hintText: "Task"),
+          ),
+          actions: <Widget>[
+            FilledButton(
+              child: const Text('Submit'),
+              onPressed: () {
+                String taskInput = taskController.text;
+                if (taskInput.isNotEmpty) {
+                  state = state.copyWith(
+                    dailyPlanner: List.from(state.dailyPlanner)
+                      ..[index] = taskInput,
+                    totalTasks: state.totalTasks + 1,
+                  );
+                }
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void clearParticularTask(int index) {
     state = state.copyWith(
       dailyPlanner: List.from(state.dailyPlanner)..[index] = '',
@@ -73,8 +107,8 @@ class DailyPlannerNotifier extends StateNotifier<DailyPlannerState> {
 
   void resetTasks() {
     state = DailyPlannerState(
-      dailyPlanner: List.filled(18, ''),
-      isTaskCompleted: List.filled(18, false),
+      dailyPlanner: List.filled(24, ''),
+      isTaskCompleted: List.filled(24, false),
       completedTasks: 0,
       totalTasks: 0,
     );

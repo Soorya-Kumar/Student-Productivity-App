@@ -24,7 +24,6 @@ class ScrollListTODO extends ConsumerWidget {
         Expanded(
           child: ListView.builder(
             itemCount: tasks.length,
-            reverse: true,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
               final taskData = tasks[index];

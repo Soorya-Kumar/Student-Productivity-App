@@ -21,7 +21,9 @@ class MainHomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dailyPlannerState = ref.watch(dailyPlannerProvider);
+    final dailyPlannerState = ref.watch(dailyPlannerProvider);    
+    final bool isSpecialTasks = ref.watch(hasOverdueTasksProvider);
+
     //print(userimageurl);
     
     return SafeArea(
@@ -33,14 +35,18 @@ class MainHomeScreen extends ConsumerWidget {
               child: CustomScrollView(
                   slivers: <Widget>[
                     const SliverToBoxAdapter(child: SizedBox(height: 15)),
-              
+                
                     const SliverToBoxAdapter(
                       child: Padding(
                         padding: EdgeInsets.all(18.0),
-                        child: Text(
-                          'WELCOME\nBACK !!',
-                          textAlign: TextAlign.start,
-                          style: TextStyle(fontSize: 40),
+                        child: Row(
+                          children: [
+                            Text(
+                              'WELCOME\nBACK !!',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(fontSize: 40),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -64,18 +70,20 @@ class MainHomeScreen extends ConsumerWidget {
                           ],
                         ),
                         child: const Text(
-                        'TODAY\'S EVENTS AND DEADLINES',
+                        'TODAY\'S REMAINDER',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 16,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
                   
+                  
                   SpecialTasksPage(refer: todayTasksProvider, dummy: 'No tasks today !!!\nBut you can always do tomorrow\'s tasks'),
                   
+                  if(isSpecialTasks == true)
                   SliverToBoxAdapter(
                     child: Container(
                       margin: const EdgeInsets.all(10),
@@ -93,17 +101,18 @@ class MainHomeScreen extends ConsumerWidget {
                         ],
                       ),
                       child: const Text(
-                        'OVERDUE TASKS',
+                        'OVERDUE',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 16,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
                   
-                  SpecialTasksPage(refer: overdueTasksProvider, dummy: 'No pending tasks!! YOU ARE BEING PRODUCTIVE!!'), 
+                  if(isSpecialTasks == true)
+                  SpecialTasksPage(refer: overdueTasksProvider, dummy: ''), 
 
                   const SliverToBoxAdapter(child: SizedBox(height: 15)),
                   
@@ -161,7 +170,7 @@ class MainHomeScreen extends ConsumerWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(18.0),
                         child: Text(
-                          'You have completed ${dailyPlannerState.completedTasks} out of ${dailyPlannerState.totalTasks} tasks',
+                          '${dailyPlannerState.completedTasks} / ${dailyPlannerState.totalTasks} plans completed',
                           textAlign: TextAlign.center,
                           style: const TextStyle(fontSize: 20),
                         ),

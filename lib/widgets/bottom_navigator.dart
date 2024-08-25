@@ -68,7 +68,8 @@ class _BootomBarState extends State<BootomBar> {
             backgroundColor: color,
             icon: const Icon(Icons.calendar_today_rounded),
             label: 'Daily Planner',
-          ),/*
+          ),
+          /*
           BottomNavigationBarItem(
             backgroundColor: Color.fromARGB(255, 141, 76, 254),
             icon: Icon(Icons.attach_money_rounded),
