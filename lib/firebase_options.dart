@@ -50,7 +50,6 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDR4IuWpmcLDLqBKKp37vRqukBXlPm1O4c',
     appId: '1:172407271569:android:0978ff29ce8b7e5ed50f30',
     messagingSenderId: '172407271569',
     projectId: 'groceries-app-b740c',
